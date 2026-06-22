@@ -65,13 +65,16 @@ const hasBottomSlot = computed(() => Boolean(slots.bottom))
     </button>
 
     <div class="egg-stage">
-      <img
-        class="egg-display-image"
-        :src="props.imageSrc"
-        :alt="props.imageAlt"
-        :style="imageStyle"
-        decoding="async"
-      />
+      <div class="egg-visual">
+        <img
+          class="egg-display-image"
+          :src="props.imageSrc"
+          :alt="props.imageAlt"
+          :style="imageStyle"
+          decoding="async"
+        />
+        <slot />
+      </div>
     </div>
 
     <button
@@ -130,6 +133,12 @@ const hasBottomSlot = computed(() => Boolean(slots.bottom))
   flex: 1 1 0%;
   min-height: 0;
   display: grid;
+  place-items: center;
+}
+
+.egg-visual {
+  position: relative;
+  display: inline-grid;
   place-items: center;
 }
 

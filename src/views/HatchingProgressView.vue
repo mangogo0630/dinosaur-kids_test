@@ -7,6 +7,8 @@ import DoctorNote from '../components/DoctorNote.vue'
 import BottomActionBar from '../components/BottomActionBar.vue'
 import EggShowcaseCard from '../components/EggShowcaseCard.vue'
 import StepMiddleSurface from '../components/StepMiddleSurface.vue'
+import circuitBoardPinkUrl from '../assets/images/電路板_粉.png'
+import flashDecoUrl from '../assets/images/FlashDeco1.png'
 import { EGG_IDS, resolveEggImageByIndex } from '../utils/eggAssets'
 
 const router = useRouter()
@@ -26,19 +28,18 @@ async function uploadImage() {
 
   const formData = new FormData()
   formData.append('image', hatchSession.avatarBlob)
-  let showid = VueCookies.get('showid') ?? hatchSession.showID ?? 'no_showid'
+  const showid = String(VueCookies.get('showid') ?? hatchSession.showID ?? 'no_showid')
+  const isTablet = String(VueCookies.get('istablet') ?? 'false')
 
-  const isTablet = VueCookies.get('istablet');
-  if(isTablet === 'true'){
-      showid = 'tablet';
-  }
   console.log('name & egg & showid:', hatchSession.dinoName, hatchSession.selectedEggIndex, showid)
-
-  formData.append('filename', `img_${Date.now()}`)
+  hatchSession.imageName = String(Date.now())
+  VueCookies.set('imageName', hatchSession.imageName, '1d')
+  formData.append('filename', `img_${hatchSession.imageName}`)
   formData.append('id', showid)
   formData.append('eggtype', String(hatchSession.selectedEggIndex))
+  formData.append('dinotype', hatchSession.dinoType)
   formData.append('displayname', hatchSession.dinoName)
-
+  formData.append('isTablet', isTablet)
   try {
     const res = await fetch('/upload', {
       method: 'POST',
@@ -101,11 +102,22 @@ onBeforeUnmount(() => {
       <p>恐龍蛋孵化中...</p>
     </DoctorNote>
 
-    <StepMiddleSurface tone="purple">
+    <StepMiddleSurface
+      tone="purple"
+      class="hatching-surface"
+      :style="{
+        '--circuit-board-top': `url(${circuitBoardPinkUrl})`,
+        '--flash-deco': `url(${flashDecoUrl})`,
+      }"
+    >
       <EggShowcaseCard
         :image-src="currentEggImageUrl"
         :image-alt="currentEggLabel"
       >
+        <span class="flash-deco flash-deco--1" aria-hidden="true" />
+        <span class="flash-deco flash-deco--2" aria-hidden="true" />
+        <span class="flash-deco flash-deco--3" aria-hidden="true" />
+
         <template #bottom>
           <div class="hatch-progress-shell" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">
             <div class="hatch-progress-track">
@@ -125,6 +137,115 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   min-height: 0;
+}
+
+.hatching-surface :deep(.step-middle-frame) {
+  position: relative;
+  overflow: hidden;
+}
+
+.hatching-surface :deep(.step-middle-frame)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58%;
+  background-image: var(--circuit-board-top);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hatching-surface :deep(.step-middle-body) {
+  position: relative;
+  z-index: 1;
+}
+
+.hatching-surface :deep(.egg-visual) {
+  transform: translateY(2.2vh);
+}
+
+.hatching-surface :deep(.egg-display-image) {
+  position: relative;
+  z-index: 1;
+  transform: none;
+  max-height: 100%;
+  max-width: min(84%, 400px);
+}
+
+@media (min-width: 389px) {
+  .hatching-surface :deep(.egg-display-image) {
+    max-width: min(88%, 460px);
+  }
+}
+
+@media (min-width: 389px) and (min-height: 780px) {
+  .hatching-surface :deep(.egg-display-image) {
+    max-width: min(90%, 500px);
+  }
+}
+
+.flash-deco {
+  position: absolute;
+  left: var(--flash-left);
+  top: var(--flash-top);
+  width: var(--flash-size);
+  aspect-ratio: 150 / 253;
+  background-image: var(--flash-deco);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 2;
+  transform: rotate(var(--flash-rotate));
+  animation: flashPulse 1.05s ease-in-out infinite;
+}
+
+.flash-deco--1 {
+  --flash-left: 13%;
+  --flash-top: -12%;
+  --flash-size: 22%;
+  --flash-rotate: -43deg;
+}
+
+.flash-deco--2 {
+  --flash-left: 13%;
+  --flash-top: 12%;
+  --flash-size: 13%;
+  --flash-rotate: -60deg;
+  animation-delay: 0.18s;
+}
+
+.flash-deco--3 {
+  --flash-left: 77%;
+  --flash-top: 22%;
+  --flash-size: 13%;
+  --flash-rotate: 10deg;
+  animation-delay: 0.36s;
+}
+
+@keyframes flashPulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    filter: brightness(0.95) drop-shadow(0 0 2px rgba(255, 232, 92, 0.45));
+    transform: rotate(var(--flash-rotate)) scale(0.96);
+  }
+
+  42% {
+    opacity: 1;
+    filter: brightness(1.35) drop-shadow(0 0 10px rgba(255, 232, 92, 0.9));
+    transform: rotate(var(--flash-rotate)) scale(1.08);
+  }
+
+  58% {
+    opacity: 0.88;
+    filter: brightness(1.1) drop-shadow(0 0 5px rgba(255, 232, 92, 0.65));
+    transform: rotate(var(--flash-rotate)) scale(1.02);
+  }
 }
 
 .hatch-progress-shell {

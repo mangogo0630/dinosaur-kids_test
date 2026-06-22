@@ -6,6 +6,7 @@ import BottomActionBar from '../components/BottomActionBar.vue'
 import DoctorNote from '../components/DoctorNote.vue'
 import EggShowcaseCard from '../components/EggShowcaseCard.vue'
 import StepMiddleSurface from '../components/StepMiddleSurface.vue'
+import circuitBoardBluePurpleUrl from '../assets/images/電路板_藍紫.png'
 import { EGG_IDS, resolveEggImageByIndex } from '../utils/eggAssets'
 
 const router = useRouter()
@@ -38,7 +39,10 @@ function goNext() {
     </DoctorNote>
 
     <!-- 恐龍蛋卡片 -->
-    <StepMiddleSurface>
+    <StepMiddleSurface
+      class="egg-select-surface"
+      :style="{ '--circuit-board-top': `url(${circuitBoardBluePurpleUrl})` }"
+    >
       <EggShowcaseCard
         :image-src="currentEggImageUrl"
         :image-alt="currentEggLabel"
@@ -73,6 +77,70 @@ function goNext() {
 
 :deep(.step-middle-body) {
   overflow: visible;
+}
+
+.egg-select-surface :deep(.step-middle-frame) {
+  position: relative;
+  overflow: hidden;
+}
+
+.egg-select-surface :deep(.step-middle-frame)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58%;
+  background-image: var(--circuit-board-top);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.egg-select-surface :deep(.step-middle-body) {
+  position: relative;
+  z-index: 1;
+}
+
+.egg-select-page :deep(.egg-showcase-card) {
+  height: 100%;
+}
+
+.egg-select-page :deep(.egg-stage) {
+  overflow: visible;
+  padding-top: 0;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.egg-select-page :deep(.bottom-slot) {
+  flex-shrink: 0;
+}
+
+.egg-select-page :deep(.egg-display-image) {
+  transform: translateY(clamp(24px, 4svh, 86px));
+  max-height: 100%;
+  max-width: min(84%, 400px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 389px) {
+  .egg-select-page :deep(.egg-display-image) {
+    max-width: min(88%, 460px);
+  }
+}
+
+@media (min-width: 389px) and (min-height: 780px) {
+  .egg-select-page :deep(.egg-display-image) {
+    max-width: min(90%, 500px);
+  }
 }
 
 .pagination-dots {

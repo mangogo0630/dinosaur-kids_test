@@ -6,8 +6,10 @@ type HatchSessionState = {
   dinoType: string
   dinoName: string
   showID: string
+  imageName: string
   avatarDataUrl: string | null
   avatarBlob: Blob | null
+  
 }
 
 const initialState = (): HatchSessionState => ({
@@ -16,6 +18,7 @@ const initialState = (): HatchSessionState => ({
   dinoType: '暴龍',
   dinoName: '可愛的暴龍',
   showID: 'no_showid',
+  imageName: 'unassigned',
   avatarDataUrl: null,
   avatarBlob: null
 })

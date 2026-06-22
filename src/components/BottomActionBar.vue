@@ -10,12 +10,16 @@ const props = withDefaults(
     disabled?: boolean
     timerSeconds?: number
     countdown?: boolean
+    bare?: boolean
+    buttonTone?: 'blue' | 'pink'
   }>(),
   {
     nextLabel: '下一步',
     disabled: false,
     timerSeconds: 60,
     countdown: true,
+    bare: false,
+    buttonTone: 'blue',
   },
 )
 
@@ -62,12 +66,18 @@ const shownTimer = computed(() =>
 </script>
 
 <template>
-  <div class="action-dock deck-bar bottom-bar-layout">
-    <div class="logo-slot">
+  <div
+    class="action-dock"
+    :class="[
+      { 'deck-bar bottom-bar-layout': !bare },
+      { 'action-dock--bare': bare },
+    ]"
+  >
+    <div v-if="!bare" class="logo-slot">
       <img class="logo-img" :src="cafLogoUrl" alt="新北市兒童藝術節" decoding="async" />
     </div>
 
-    <div class="bottom-center">
+    <div class="bottom-center" :class="{ 'bottom-center--bare': bare }">
       <p v-if="centerText" class="center-text">{{ centerText }}</p>
       <div v-else-if="secondaryLabel" class="dual-actions">
         <button type="button" class="pill-btn pill-btn-compact" @click="emit('secondary')">
@@ -76,6 +86,7 @@ const shownTimer = computed(() =>
         <button
           type="button"
           class="pill-btn pill-btn-compact"
+          :class="{ 'pill-btn--pink': buttonTone === 'pink' }"
           :disabled="disabled"
           @click="emit('next')"
         >
@@ -85,7 +96,11 @@ const shownTimer = computed(() =>
       <button
         v-else
         type="button"
-        class="pill-btn pill-btn--single"
+        class="pill-btn"
+        :class="[
+          bare ? 'pill-btn--bare' : 'pill-btn--single',
+          { 'pill-btn--pink': buttonTone === 'pink' },
+        ]"
         :disabled="disabled"
         @click="emit('next')"
       >
@@ -93,7 +108,7 @@ const shownTimer = computed(() =>
       </button>
     </div>
 
-    <div class="timer-ring" aria-live="polite">{{ shownTimer }}</div>
+    <div v-if="!bare" class="timer-ring" aria-live="polite">{{ shownTimer }}</div>
   </div>
 </template>
 
@@ -115,6 +130,19 @@ const shownTimer = computed(() =>
     transform: translateX(-50%);
     width: min(100%, clamp(520px, 70vw, 640px));
   }
+}
+
+.action-dock--bare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px var(--shell-padding) max(12px, env(safe-area-inset-bottom));
+}
+
+.bottom-center--bare {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .deck-bar {
@@ -203,6 +231,8 @@ const shownTimer = computed(() =>
   font-weight: 900;
   justify-self: end;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /*主按鈕*/
@@ -234,6 +264,25 @@ const shownTimer = computed(() =>
   width: var(--pill-fixed-width);
   max-width: 100%;
   padding-inline: 6px;
+}
+
+.pill-btn--bare {
+  width: auto;
+  min-width: var(--pill-fixed-width);
+  max-width: 100%;
+  padding-inline: 20px;
+  white-space: nowrap;
+}
+
+.pill-btn--pink {
+  background: linear-gradient(180deg, #ffcde9 0%, #f472b6 50%, #ffabd5 100%);
+  text-shadow: 0 1px 0 rgba(120, 15, 80, 0.35);
+}
+
+.pill-btn--pink:active:not(:disabled) {
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.18),
+    inset 0 2px 6px rgba(140, 15, 90, 0.25);
 }
 
 .pill-btn-compact {

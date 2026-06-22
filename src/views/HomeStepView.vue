@@ -2,9 +2,9 @@
 import { useRouter , useRoute } from 'vue-router'
 import VueCookies from 'vue-cookies'
 import { resetHatchSession } from '../stores/hatchSession'
+import BottomActionBar from '../components/BottomActionBar.vue'
 import mainLogoUrl from '../assets/images/MainLogo.png'
 import cafLogoUrl from '../assets/images/CafLogo.png'
-import doctorImageUrl from '../assets/images/Doctor.png'
 
 const router = useRouter()
 const route = useRoute()
@@ -56,37 +56,56 @@ function HandleShowID() {
       
       <h1 class="main-title hero-glow-title">次元恐龍孵化室</h1>
       <p class="sub-title hero-glow-title">DINO DIMENSION HATCHERY</p>
-      
-      <div class="hero-illustration">
-        <img class="hero-doctor-image" :src="doctorImageUrl" alt="博士角色" decoding="async" />
-      </div>
     </div>
 
-    <div class="action-dock">
-      <button class="primary-btn" @click="goToEggStep">進入孵化室</button>
-    </div>
+    <BottomActionBar
+      bare
+      button-tone="pink"
+      next-label="進入孵化室"
+      :countdown="false"
+      :timer-seconds="0"
+      @next="goToEggStep"
+    />
   </section>
 </template>
 
 <style scoped>
 .home-page {
-  justify-content: center;
-  padding-top: clamp(24px, 5svh, 60px);
+  justify-content: flex-start;
+  padding-top: clamp(8px, 1.5svh, 18px);
   padding-bottom: calc(clamp(88px, 16svh, 132px) + env(safe-area-inset-bottom));
 }
 
+.home-page :deep(.action-dock) {
+  bottom: 10px;
+}
+
+.home-page :deep(.pill-btn--bare) {
+  height: clamp(52px, 3vh, 68px);
+  min-height: unset;
+  font-size: clamp(26px, 3vh, 40px);
+  padding-inline: 30px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .hero-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   width: min(100%, var(--device-max-width));
   margin-inline: auto;
-  padding: 20px 16px 0;
+  padding: 4px 16px 0;
 }
 
 .hero-brand-slot {
   position: relative;
   width: 100%;
-  margin: 0 auto 10px;
-  padding-inline: clamp(44px, 12vw, 80px);
+  display: flex;
+  justify-content: center;
+  margin: clamp(3px, 1svh, 12px) auto 4px;
   box-sizing: border-box;
 }
 
@@ -106,11 +125,12 @@ function HandleShowID() {
   display: block;
   margin-inline: auto;
   margin-bottom: 0;
-  height: clamp(80px, 22svh, 260px);
+  height: clamp(100px, 26svh, 300px);
   width: auto;
-  max-width: min(94vw, 560px);
+  max-width: min(98vw, 680px);
   object-fit: contain;
-  filter: brightness(1.16) saturate(1.24) contrast(1.08);
+  filter: brightness(1.42) saturate(1.5) contrast(1.14)
+    drop-shadow(0 0 14px rgba(255, 210, 255, 0.45));
   mix-blend-mode: screen;
 }
 
@@ -124,105 +144,34 @@ function HandleShowID() {
 }
 
 .main-title {
-  margin: -6px 0 0;
-  padding-bottom: 8px;
-  font-size: 40px;
+  margin: 0;
+  padding-bottom: 4px;
+  margin-top: -8px;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(32px, 7.5vw, 46px);
   font-weight: 400;
   letter-spacing: 5px;
+  text-indent: 5px;
   line-height: 1.08;
 }
 
 .sub-title {
-  margin: 0 0 18px;
-  font-size: 15px;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(4px, 2.5vw, 12px);
   font-weight: 400;
   letter-spacing: 2px;
+  text-indent: 2px;
   line-height: 1.05;
   font-family: 'Sweet Sans Pro', Arial, Helvetica, sans-serif;
 }
 
-.hero-illustration {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-}
-
-.hero-doctor-image {
-  width: min(88vw, 360px);
-  height: auto;
-  object-fit: contain;
-}
-
-.action-dock {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  width: min(100%, var(--device-max-width));
-  padding: 12px var(--shell-padding) max(12px, env(safe-area-inset-bottom));
-  z-index: 15;
-  background: transparent;
-  border-top: none;
-  backdrop-filter: none;
-  padding-bottom: 40px;
-}
-
-.primary-btn {
-  width: 100%;
-  min-height: 52px;
-  border-radius: 12px;
-  border: 2px solid #1f1f1f;
-  color: #fff;
-  font-weight: 700;
-  background: linear-gradient(180deg, #b199f3 0%, #1930fb 100%);
-  border: 3px solid #ffffff;
-  border-radius: 999px;
-  box-shadow:
-    0 0 16px rgba(255, 255, 255, 0.8),
-    inset 0 4px 12px rgba(255, 255, 255, 0.9),
-    inset 0 -4px 8px rgba(30, 40, 200, 0.2),
-    0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  text-indent: 4px;
-  min-height: 68px;
-  width: 85%;
-  max-width: 300px;
-  margin: 0 auto;
-  display: block;
-  transition: all 0.2s ease;
-}
-
 @media (min-width: 1025px) {
   .home-page {
-    padding-top: clamp(30px, 5svh, 70px);
+    padding-top: clamp(12px, 2svh, 24px);
     padding-bottom: clamp(110px, 18svh, 160px);
   }
-
-  .action-dock {
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(100%, var(--device-max-width));
-  }
-}
-
-.primary-btn:hover {
-  background: linear-gradient(180deg, #c4aef5 0%, #3046ff 100%);
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.9),
-    inset 0 4px 12px rgba(255, 255, 255, 1),
-    inset 0 -4px 8px rgba(30, 40, 200, 0.2),
-    0 6px 16px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
-}
-
-.primary-btn:active {
-  background: linear-gradient(180deg, #9b81df 0%, #1324ca 100%);
-  box-shadow:
-    0 0 8px rgba(255, 255, 255, 0.5),
-    inset 0 2px 6px rgba(255, 255, 255, 0.6),
-    inset 0 -2px 6px rgba(30, 40, 200, 0.2);
-  transform: translateY(1px);
 }
 </style>

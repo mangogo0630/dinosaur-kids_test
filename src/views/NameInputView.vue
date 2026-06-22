@@ -5,11 +5,7 @@ import { hatchSession } from '../stores/hatchSession'
 import DoctorNote from '../components/DoctorNote.vue'
 import BottomActionBar from '../components/BottomActionBar.vue'
 import StepMiddleSurface from '../components/StepMiddleSurface.vue'
-import eggBrushIconUrl from '../assets/images/Img_Icon_Egg_Brush.png'
-import eggClayIconUrl from '../assets/images/Img_Icon_Egg_Clay.png'
-import eggFlashIconUrl from '../assets/images/Img_Icon_Egg_Flash.png'
-import eggLightIconUrl from '../assets/images/Img_Icon_Egg_Light.png'
-import eggMusicIconUrl from '../assets/images/Img_Icon_Egg_Music.png'
+import { resolveEggIconByIndex } from '../utils/eggAssets'
 
 const router = useRouter()
 
@@ -51,21 +47,13 @@ const nameOptions = [
   '黏土怪'
 ]
 
-const eggIconByName: Record<string, string> = {
-  音樂怪: eggMusicIconUrl,
-  閃電怪: eggFlashIconUrl,
-  燈光怪: eggLightIconUrl,
-  筆刷怪: eggBrushIconUrl,
-  黏土怪: eggClayIconUrl,
-}
-
 const statusListEl = ref<HTMLElement | null>(null)
 const nameListEl = ref<HTMLElement | null>(null)
 const nameListNeedsScroll = ref(false)
 let nameListResizeObserver: ResizeObserver | null = null
 
 const fullName = computed(() => `${hatchSession.dinoStatus}${hatchSession.dinoType}`)
-const currentEggIconUrl = computed(() => eggIconByName[hatchSession.dinoType] ?? eggLightIconUrl)
+const currentEggIconUrl = computed(() => resolveEggIconByIndex(hatchSession.selectedEggIndex))
 const isValid = computed(
   () => hatchSession.dinoStatus.length > 0 && hatchSession.dinoType.length > 0,
 )
