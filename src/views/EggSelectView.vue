@@ -116,6 +116,13 @@ function goNext() {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* 避免 iOS Safari 在 flex 子項上把舞台高度壓到 0 */
+  min-height: min(46svh, 360px);
+}
+
+.egg-select-page :deep(.egg-visual) {
+  flex-shrink: 0;
+  transform: translateY(clamp(24px, 4svh, 86px));
 }
 
 .egg-select-page :deep(.bottom-slot) {
@@ -123,12 +130,13 @@ function goNext() {
 }
 
 .egg-select-page :deep(.egg-display-image) {
-  transform: translateY(clamp(24px, 4svh, 86px));
-  max-height: 100%;
+  /* 勿用 max-height: 100% — 父層為 auto 高度時 iOS 會算出 0 並在換圖時持續縮小 */
+  max-height: min(46svh, 360px);
   max-width: min(84%, 400px);
   width: auto;
   height: auto;
   object-fit: contain;
+  transform: none;
 }
 
 @media (min-width: 389px) {

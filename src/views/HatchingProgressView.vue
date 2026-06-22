@@ -165,14 +165,19 @@ onBeforeUnmount(() => {
 }
 
 .hatching-surface :deep(.egg-visual) {
+  flex-shrink: 0;
   transform: translateY(2.2vh);
+}
+
+.hatching-surface :deep(.egg-stage) {
+  min-height: min(46svh, 360px);
 }
 
 .hatching-surface :deep(.egg-display-image) {
   position: relative;
   z-index: 1;
   transform: none;
-  max-height: 100%;
+  max-height: min(46svh, 360px);
   max-width: min(84%, 400px);
 }
 
