@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'ChaoGangHei';
+  src: url('./assets/fonts/ChaoGangHei.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range:
+    U+4E00-9FFF, U+3400-4DBF, U+3000-303F, U+FF00-FFEF, U+2000-206F, U+0020-007F;
+}
+
+@font-face {
+  font-family: 'Sweet Sans Pro';
+  src: url('./assets/fonts/SweetSansPro-Medium.otf') format('opentype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sweet Sans Pro';
+  src: url('./assets/fonts/SweetSansPro-Bold.otf') format('opentype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GenSenRounded';
+  src: url('./assets/fonts/GenSenRounded-B.ttc') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
+@font-face {
+  font-family: 'GenSenRounded';
+  src: url('./assets/fonts/GenSenRounded-H.ttc') format('truetype');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
+:root {
+  --device-max-width: 768px;
+  --shell-padding: 16px;
+  --bottom-bar-height: calc(100svh * 1.2 / 10);
+  --color-bg: #e9ebef;
+  --color-panel: #ffffff;
+  --color-primary: #111111;
+  --color-primary-dark: #000000;
+  --color-secondary: #f3f3f3;
+  --color-text: #1e1e1e;
+  --color-subtext: #555555;
+  --color-border: #1f1f1f;
+  --color-danger: #d23f3f;
+  --shadow-card: 0 14px 28px rgba(40, 40, 40, 0.14);
+  --font-zh:
+    'ChaoGangHei', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui,
+    -apple-system, sans-serif;
+  --font-en: 'Sweet Sans Pro', Arial, Helvetica, sans-serif;
+  --font-timer: 'GenSenRounded', 'Sweet Sans Pro', Arial, Helvetica, sans-serif;
+  font-family: var(--font-zh);
+  color: var(--color-text);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--color-bg);
+  font-family: var(--font-zh);
+  font-weight: 400;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.app-frame {
+  min-height: 100svh;
+}
+
+@media (min-width: 1025px) {
+  body {
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+
+  .app-frame {
+    width: 100%;
+    max-width: var(--device-max-width);
+    margin: 0 auto;
+    min-height: calc(100svh - 48px);
+    max-height: calc(100svh - 48px);
+  }
+}

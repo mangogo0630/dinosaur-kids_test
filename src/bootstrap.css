@@ -1,0 +1,123 @@
+#bootstrap-loader {
+  --loader-font-en: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:
+    max(20px, env(safe-area-inset-top))
+    max(20px, env(safe-area-inset-right))
+    max(20px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
+  background-color: #321cac;
+  background-image:
+    radial-gradient(circle at 50% 12%, rgba(255, 130, 210, 0.34) 0%, transparent 46%),
+    linear-gradient(180deg, #1a165f 0%, #321cac 52%, #4a2ca8 100%);
+  color: #ffffff;
+  transition: opacity 0.32s ease, visibility 0.32s ease;
+}
+
+#bootstrap-loader.bootstrap-loader--hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.bootstrap-loader-content {
+  width: min(92%, 440px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(12px, 2.4svh, 18px);
+}
+
+.bootstrap-loader-text {
+  margin: 0;
+  font-family: var(--loader-font-en);
+  font-size: clamp(15px, 3.8vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.28),
+    0 0 18px rgba(255, 105, 200, 0.28);
+}
+
+.bootstrap-loader-dots {
+  display: inline-block;
+  width: 3ch;
+  text-align: left;
+  vertical-align: baseline;
+}
+
+.bootstrap-loader-dots::after {
+  content: '';
+  animation: bootstrap-loader-dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes bootstrap-loader-dots {
+  0% {
+    content: '';
+  }
+
+  25% {
+    content: '.';
+  }
+
+  50% {
+    content: '..';
+  }
+
+  75% {
+    content: '...';
+  }
+}
+
+.bootstrap-progress-shell {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px;
+  border-radius: 999px;
+  border: 2px solid rgba(252, 210, 255, 0.65);
+  background: linear-gradient(180deg, rgba(45, 34, 146, 0.85) 0%, rgba(49, 36, 163, 0.92) 100%);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.26) inset,
+    0 4px 12px rgba(45, 37, 120, 0.35);
+}
+
+.bootstrap-progress-track {
+  height: clamp(14px, 2.6vh, 18px);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #e4e8ff 0%, #9382fe 20%, #9382fe 80%, #e4e8ff 100%);
+  overflow: hidden;
+}
+
+.bootstrap-progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffe898 0%, #ffe169 45%, #ffd84e 100%);
+  box-shadow: 0 0 10px rgba(255, 225, 103, 0.75);
+  transition: width 0.25s ease;
+}
+
+@media (min-width: 680px) {
+  .bootstrap-loader-content {
+    width: min(72%, 480px);
+  }
+
+  .bootstrap-loader-text {
+    font-size: clamp(16px, 2vw, 22px);
+  }
+}
+
+@media (min-width: 1025px) {
+  .bootstrap-loader-content {
+    width: min(68%, 520px);
+  }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+ 
+
+<script>
+
+//ondisconnect
+//jump back when unity disconnect
+
+</script>
+<title>Dino Dome</title>
+<style>
+
+@font-face {
+  font-family: GenYoGothicB;
+  src: url("assets/GenYoGothicTW-Btrimmed.ttf") format("truetype");
+}
+@font-face {
+  font-family: GenYoGothicR;
+  src: url("assets/GenYoGothicTW-Rtrimmed.ttf") format("truetype");
+}
+  html{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  body{
+    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("Images/background.png");
+    overflow: hidden;
+    background-size: contain;
+    -webkit-font-smoothing: antialiased;
+    margin:0;
+    font-weight: lighter;
+  }
+  h2{
+    font-family: GenYoGothicB, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-align:center;
+    font-size: 3.6vh;
+    margin-top: 10vh;
+    letter-spacing: 0.15em;
+    color: #577343;
+    user-select: none;
+    margin-bottom: 0;
+  }
+  h3{
+    margin-top: 0.4em;
+    font-family: GenYoGothicR, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.1em;
+    font-size: 2.36vh;
+    text-align:center;
+    color: #886d25;
+  }
+  .hidden{
+    display: none!important;
+  }
+
+
+#capture{
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+  display: block;
+}
+p{
+  width: 500px;
+  height: 50px;
+  margin: 20px auto;
+  display: block;
+}
+.video-container {
+  aspect-ratio: 1 / 1;
+  width: 500px;
+  height: 500px;
+  margin: 0px auto;
+}
+#videoElement{
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+	background-color: #666;
+}
+
+</style>
+</head>
+
+<body>
+<div class="video-container">
+  <video autoplay id="videoElement"></video>
+  </div>
+<canvas id="canvas" style="display:none;"></canvas>
+<button onclick="uploadImage()" id="capture">Capture & Upload</button>
+<p id="debugMsg">Debug Messages</p>
+<script>
+const video = document.getElementById("videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+
+async function uploadImage() {
+  const canvas = document.getElementById("canvas");
+  const msg = document.getElementById("debugMsg");
+  const ctx = canvas.getContext("2d");
+  const vw = video.videoWidth;
+  const vh = video.videoHeight;
+  const size = Math.min(vw, vh);
+  const sx = (vw - size) / 2;
+  const sy = (vh - size) / 2;
+  canvas.width = size;
+  canvas.height = size;
+
+  ctx.drawImage(
+  video,
+  sx, sy, size, size,   // source (crop)
+  0, 0, size, size      // destination
+  );
+  const blob = await new Promise(r => canvas.toBlob(r, "image/jpeg", 0.6));
+
+  const formData = new FormData();
+  formData.append("image", blob);
+
+  //query params
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+  });
+  let showID = params.showid ?? 'no_showid';
+  formData.append("filename", "img_" + Date.now());
+  formData.append("id", showID);
+  formData.append("eggType", 0);
+  formData.append("displayNameIndex1", 0);
+  formData.append("displayNameIndex2", 0);
+
+  try {
+    const res = await fetch("/upload", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      msg.innerText = "Upload success:"+ data.filename;
+      console.log("Upload success:", data.filename);
+    } else {
+      msg.innerText = "Upload failed:"+ data.error;
+      console.error("Upload failed:", data.error);
+    }
+
+  } catch (err) {
+    msg.innerText = "Network error:"+ err;
+    console.error("Network error:", err);
+  }
+}
+</script>
+</body>
+
+
+</html>
