@@ -5,11 +5,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>怪獸叢林孵化室</title>
-  <script type="module" crossorigin src="/dragon_test/assets/index-UNQp6Tgj.js"></script>
-  <link rel="stylesheet" crossorigin href="/dragon_test/assets/index-C9DXDMjq.css">
+  <style>
+    #bootstrap-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin: 0;
+      background-color: #321cac;
+      background-image:
+        radial-gradient(circle at 50% 12%, rgba(255, 130, 210, 0.34) 0%, transparent 46%),
+        linear-gradient(180deg, #1a165f 0%, #321cac 52%, #4a2ca8 100%);
+      color: #fff;
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    }
+
+    .bootstrap-loader-content {
+      width: min(92%, 440px);
+      text-align: center;
+    }
+
+    .bootstrap-loader-text {
+      margin: 0 0 14px;
+      font-size: clamp(15px, 3.8vw, 20px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .bootstrap-loader-dots {
+      display: inline-block;
+      width: 3ch;
+      text-align: left;
+      vertical-align: baseline;
+    }
+
+    .bootstrap-loader-dots::after {
+      content: '';
+      animation: bootstrap-loader-dots 1.2s steps(4, end) infinite;
+    }
+
+    @keyframes bootstrap-loader-dots {
+      0% {
+        content: '';
+      }
+
+      25% {
+        content: '.';
+      }
+
+      50% {
+        content: '..';
+      }
+
+      75% {
+        content: '...';
+      }
+    }
+
+    .bootstrap-progress-shell {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 6px;
+      border-radius: 999px;
+      border: 2px solid rgba(252, 210, 255, 0.65);
+      background: linear-gradient(180deg, rgba(45, 34, 146, 0.85) 0%, rgba(49, 36, 163, 0.92) 100%);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.26) inset, 0 4px 12px rgba(45, 37, 120, 0.35);
+    }
+
+    .bootstrap-progress-track {
+      height: clamp(14px, 2.6vh, 18px);
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e4e8ff 0%, #9382fe 20%, #9382fe 80%, #e4e8ff 100%);
+      overflow: hidden;
+    }
+
+    .bootstrap-progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffe898 0%, #ffe169 45%, #ffd84e 100%);
+      box-shadow: 0 0 10px rgba(255, 225, 103, 0.75);
+      transition: width 0.25s ease;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-CtEDDhN1.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Cm-KIUWa.css">
 </head>
 
 <body>
+  <div id="bootstrap-loader" role="status" aria-live="polite" aria-busy="true">
+    <div class="bootstrap-loader-content">
+      <p class="bootstrap-loader-text">
+        Loading<span class="bootstrap-loader-dots" aria-hidden="true"></span>
+      </p>
+      <div
+        class="bootstrap-progress-shell"
+        role="progressbar"
+        aria-valuenow="0"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label="Loading progress"
+      >
+        <div class="bootstrap-progress-track">
+          <div class="bootstrap-progress-fill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="app"></div>
 </body>
 
