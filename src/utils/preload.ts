@@ -29,6 +29,8 @@ import eggIcon02Url from '../assets/images/Img_Icon_Egg_Clay.png'
 import eggIcon03Url from '../assets/images/Img_Icon_Egg_Music.png'
 import eggIcon04Url from '../assets/images/Img_Icon_Egg_Brush.png'
 import eggIcon05Url from '../assets/images/Img_Icon_Egg_Flash.png'
+import captureFlashDinoUrl from '../assets/images/新北兒藝_角色設計_3d_閃光怪去背.png'
+import captureLightDinoUrl from '../assets/images/新北兒藝_角色設計_3d_燈光怪去背.png'
 import {
   ensureCriticalFontsLoaded,
   ensureTimerFontLoaded,
@@ -52,12 +54,14 @@ const CRITICAL_IMAGE_URLS = [
   eggIcon04Url,
   eggIcon05Url,
   circuitBoardBluePurpleUrl,
+  captureFlashDinoUrl,
+  captureLightDinoUrl,
+  cameraFaceUrl,
 ] as const
 
 const DEFERRED_IMAGE_URLS = [
   circuitBoardPinkUrl,
   flashDecoUrl,
-  cameraFaceUrl,
   downloadIconUrl,
   cardBg1Url,
   cardBg2Url,

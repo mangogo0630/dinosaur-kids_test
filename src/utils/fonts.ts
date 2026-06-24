@@ -48,7 +48,7 @@ export async function ensureCriticalFontsLoaded(timeoutMs = 4000): Promise<void>
     ])
     await document.fonts.ready
   } catch {
-    // 字型載入失敗時改用 fallback
+    // 字型載入失敗時換fallback
   }
 }
 

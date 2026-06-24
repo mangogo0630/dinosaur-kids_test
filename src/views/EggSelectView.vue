@@ -14,6 +14,7 @@ const eggs = [...EGG_IDS]
 
 const currentEggLabel = computed(() => eggs[hatchSession.selectedEggIndex])
 const currentEggImageUrl = computed(() => resolveEggImageByIndex(hatchSession.selectedEggIndex))
+const currentDinoType = computed(() => resolveDinoTypeByEggIndex(hatchSession.selectedEggIndex))
 
 function prevEgg() {
   hatchSession.selectedEggIndex =
@@ -52,14 +53,17 @@ function goNext() {
         @next="nextEgg"
       >
         <template #bottom>
-        <div class="pagination-dots">
-          <span
-            v-for="(_, index) in eggs"
-            :key="index"
-            class="dot"
-            :class="{ active: hatchSession.selectedEggIndex === index }"
-          />
-        </div>
+          <div class="egg-bottom-footer">
+            <p class="egg-dino-name">{{ currentDinoType }}</p>
+            <div class="pagination-dots">
+              <span
+                v-for="(_, index) in eggs"
+                :key="index"
+                class="dot"
+                :class="{ active: hatchSession.selectedEggIndex === index }"
+              />
+            </div>
+          </div>
         </template>
       </EggShowcaseCard>
     </StepMiddleSurface>
@@ -147,6 +151,56 @@ function goNext() {
 @media (min-width: 389px) and (min-height: 780px) {
   .egg-select-page :deep(.egg-display-image) {
     max-width: min(90%, 500px);
+  }
+}
+
+.egg-bottom-footer {
+  position: relative;
+}
+
+.egg-dino-name {
+  --egg-name-lift: clamp(14px, min(4.5vw, 2.8svh), 26px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + var(--egg-name-lift));
+  margin: 0;
+  padding-inline: 12px;
+  text-align: center;
+  font-family: var(--font-zh);
+  font-size: clamp(18px, min(6.4vw, 3svh), 34px);
+  font-weight: 400;
+  letter-spacing: clamp(0.08em, 1.1vw, 0.14em);
+  text-indent: clamp(0.08em, 1.1vw, 0.14em);
+  line-height: 1.12;
+  color: #3f4ff2;
+  pointer-events: none;
+  -webkit-text-stroke: clamp(1px, 0.32vw, 2px) #ffffff;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 1px #ffffff,
+    0 1px 0 #ffffff,
+    0 0 clamp(6px, 1.8vw, 10px) rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 390px) {
+  .egg-dino-name {
+    --egg-name-lift: clamp(12px, min(5vw, 2.6svh), 20px);
+    font-size: clamp(16px, min(6.8vw, 2.8svh), 26px);
+  }
+}
+
+@media (min-width: 680px) {
+  .egg-dino-name {
+    --egg-name-lift: clamp(16px, min(3.2vw, 2.6svh), 28px);
+    font-size: clamp(24px, min(3.8vw, 2.5svh), 38px);
+  }
+}
+
+@media (min-width: 1025px) {
+  .egg-dino-name {
+    --egg-name-lift: clamp(18px, 2.4svh, 30px);
+    font-size: clamp(26px, min(2.6vw, 2.2svh), 36px);
   }
 }
 
