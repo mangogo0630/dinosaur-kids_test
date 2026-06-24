@@ -35,6 +35,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Local SSL certificates
+# SSL certificates
 server.cert
 server.key
