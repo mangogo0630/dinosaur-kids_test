@@ -59,6 +59,18 @@ import captureLightDinoUrl from '../assets/images/新北兒藝_角色設計_3d_�
   transform: translate(clamp(8px, 2vw, 2px), 2px);
 }
 
+@media (max-width: 379px) {
+  .avatar-dino--flash {
+    height: clamp(90px, 27vw, 162px);
+    transform: translate(clamp(14px, 5vw, 24px), 2px);
+  }
+
+  .avatar-dino--light {
+    height: clamp(94px, 29vw, 172px);
+    transform: translate(clamp(8px, 2vw, 2px), 2px);
+  }
+}
+
 @media (min-width: 680px) {
   .avatar-dino-deck {
     padding-inline: clamp(24px, 6vw, 52px);
