@@ -106,19 +106,6 @@ function goHatching() {
   }
 }
 
-@media (min-aspect-ratio: 7/10) {
-  .review-card {
-    width: min(84vw, calc(100svh - clamp(320px, 48svh, 360px)), 360px);
-    max-width: calc(100vw - 16px);
-  }
-}
-
-@media (min-aspect-ratio: 7/10) and (max-height: 680px) {
-  .review-card {
-    width: min(80vw, calc(100svh - clamp(330px, 50svh, 370px)), 320px);
-  }
-}
-
 .preview-stage {
   position: relative;
   width: 100%;

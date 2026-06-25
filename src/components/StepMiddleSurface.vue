@@ -114,31 +114,4 @@ withDefaults(
 .step-middle-mount--content .step-middle-body {
   overflow: visible;
 }
-
-/* 寬扁直式 */
-@media (min-aspect-ratio: 7/10) {
-  .step-middle-mount:not(.step-middle-mount--content) {
-    --middle-row-svh: calc((7.4 - 3) / 10 * 100svh);
-    --middle-row-max: min(62svh, 380px);
-  }
-
-  .step-middle-mount--compact:not(.step-middle-mount--content) {
-    --middle-row-svh: calc((6.9 - 3) / 10 * 100svh);
-    --middle-row-max: min(58svh, 360px);
-  }
-}
-
-@media (min-aspect-ratio: 7/10) and (max-height: 680px) {
-  .step-middle-mount:not(.step-middle-mount--content) {
-    --middle-row-min: 168px;
-    --middle-row-svh: calc((6.6 - 3) / 10 * 100svh);
-    --middle-row-max: min(54svh, 340px);
-  }
-
-  .step-middle-mount--compact:not(.step-middle-mount--content) {
-    --middle-row-min: 152px;
-    --middle-row-svh: calc((6.2 - 3) / 10 * 100svh);
-    --middle-row-max: min(50svh, 320px);
-  }
-}
 </style>

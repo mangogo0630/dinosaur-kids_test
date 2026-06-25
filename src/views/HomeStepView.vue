@@ -105,11 +105,12 @@ function HandleShowID() {
 }
 
 .home-page :deep(.pill-btn--bare) {
-  --pill-optical-y: 0px;
+  --pill-optical-y: -2px;
   min-height: clamp(52px, 3vh, 68px);
   height: auto;
   font-size: clamp(26px, 3vh, 40px);
-  padding-block: clamp(10px, 1vh, 14px);
+  padding-top: clamp(8px, 0.85vh, 12px);
+  padding-bottom: clamp(12px, 1.25vh, 17px);
   padding-inline: 30px;
   letter-spacing: 0.14em;
   white-space: nowrap;

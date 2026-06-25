@@ -190,19 +190,6 @@ async function captureFrame() {
   }
 }
 
-@media (min-aspect-ratio: 7/10) {
-  .capture-card {
-    width: min(84vw, calc(100svh - clamp(320px, 48svh, 360px)), 360px);
-    max-width: calc(100vw - 16px);
-  }
-}
-
-@media (min-aspect-ratio: 7/10) and (max-height: 680px) {
-  .capture-card {
-    width: min(80vw, calc(100svh - clamp(330px, 50svh, 370px)), 320px);
-  }
-}
-
 .camera-stage {
   position: relative;
   width: 100%;
