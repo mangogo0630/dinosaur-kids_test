@@ -5,9 +5,8 @@ import { hatchSession } from '../stores/hatchSession'
 import DoctorNote from '../components/DoctorNote.vue'
 import BottomActionBar from '../components/BottomActionBar.vue'
 import StepMiddleSurface from '../components/StepMiddleSurface.vue'
+import AvatarSideDinos from '../components/AvatarSideDinos.vue'
 import cameraFaceUrl from '../assets/images/CameraFace.png'
-import captureFlashDinoUrl from '../assets/images/新北兒藝_角色設計_3d_閃光怪去背.png'
-import captureLightDinoUrl from '../assets/images/新北兒藝_角色設計_3d_燈光怪去背.png'
 
 const router = useRouter()
 
@@ -144,20 +143,7 @@ async function captureFrame() {
     <!-- 擷取畫面 -->
     <canvas ref="canvasEl" style="display: none;"></canvas>
 
-    <div class="capture-dino-deck" aria-hidden="true">
-      <img
-        class="capture-dino capture-dino--flash"
-        :src="captureFlashDinoUrl"
-        alt=""
-        decoding="async"
-      />
-      <img
-        class="capture-dino capture-dino--light"
-        :src="captureLightDinoUrl"
-        alt=""
-        decoding="async"
-      />
-    </div>
+    <AvatarSideDinos />
 
     <BottomActionBar
       next-label="拍照" 
@@ -253,69 +239,6 @@ async function captureFrame() {
   object-fit: contain;
   pointer-events: none;
   z-index: 5;
-}
-
-.capture-dino-deck {
-  --capture-dock-height: max(56px, var(--bottom-bar-height, calc(100svh * 1.5 / 10)));
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: var(--capture-dock-height);
-  z-index: 16;
-  width: min(100%, var(--device-max-width, 768px));
-  margin-inline: auto;
-  padding: 0 clamp(16px, 5vw, 36px);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  pointer-events: none;
-}
-
-.capture-dino {
-  display: block;
-  width: auto;
-  object-fit: contain;
-  object-position: bottom center;
-  flex-shrink: 0;
-  filter: drop-shadow(0 4px 10px rgba(20, 12, 72, 0.28));
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.capture-dino--flash {
-  height: clamp(90px, 27vw, 162px);
-  transform: translate(clamp(-8px, -2vw, -2px), 2px);
-}
-
-.capture-dino--light {
-  height: clamp(94px, 29vw, 172px);
-  transform: translate(clamp(8px, 2vw, 2px), 2px);
-}
-
-@media (min-width: 680px) {
-  .capture-dino-deck {
-    padding-inline: clamp(24px, 6vw, 52px);
-  }
-
-  .capture-dino--flash {
-    height: clamp(104px, 20vw, 152px);
-    transform: translate(clamp(-10px, -1.8vw, -4px), 2px);
-  }
-
-  .capture-dino--light {
-    height: clamp(108px, 21vw, 162px);
-    transform: translate(clamp(10px, 1.8vw, 4px), 2px);
-  }
-}
-
-@media (min-width: 1025px) {
-  .capture-dino-deck {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    width: min(100%, clamp(520px, 70vw, 640px));
-  }
 }
 
 </style>

@@ -5,6 +5,7 @@ import { hatchSession } from '../stores/hatchSession'
 import DoctorNote from '../components/DoctorNote.vue'
 import BottomActionBar from '../components/BottomActionBar.vue'
 import StepMiddleSurface from '../components/StepMiddleSurface.vue'
+import AvatarSideDinos from '../components/AvatarSideDinos.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -56,6 +57,8 @@ function goHatching() {
         </div>
       </div>
     </StepMiddleSurface>
+
+    <AvatarSideDinos />
 
     <BottomActionBar
       secondary-label="重新拍攝"
