@@ -150,13 +150,12 @@ onMounted(async () => {
 }
 
 .print-modal-btn {
-  --pill-optical-y: -1px;
+  --pill-optical-y: 0px;
   margin-top: 20px;
   width: clamp(104px, 30vw, 148px);
   max-width: 100%;
   min-height: clamp(46px, 6.8vh, 56px);
-  padding-top: clamp(6px, 0.65vh, 8px);
-  padding-bottom: clamp(9px, 0.95vh, 12px);
+  padding-block: clamp(8px, 0.8vh, 11px);
   padding-inline: 20px;
   border: 2px solid #ffffff;
   border-radius: 999px;

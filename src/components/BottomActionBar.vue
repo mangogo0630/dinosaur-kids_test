@@ -301,12 +301,11 @@ const shownTimer = computed(() =>
 
 /*主按鈕*/
 .pill-btn {
-  --pill-optical-y: -1px;
+  --pill-optical-y: 0px;
   width: 100%;
   margin: 0 auto;
   min-height: clamp(46px, 6.8vh, 56px);
-  padding-top: clamp(6px, 0.65vh, 8px);
-  padding-bottom: clamp(9px, 0.95vh, 12px);
+  padding-block: clamp(8px, 0.8vh, 11px);
   padding-inline: 20px;
   border: 2px solid #ffffff;
   border-radius: 999px;
@@ -364,8 +363,7 @@ const shownTimer = computed(() =>
   font-size: clamp(16px, 2.6vh, 20px);
   letter-spacing: 0.06em;
   min-height: clamp(42px, 5.8vh, 50px);
-  padding-top: clamp(5px, 0.55vh, 7px);
-  padding-bottom: clamp(8px, 0.85vh, 10px);
+  padding-block: clamp(7px, 0.75vh, 9px);
   padding-inline: 6px;
 }
 
